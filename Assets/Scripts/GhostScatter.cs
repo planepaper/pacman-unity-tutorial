@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GhostScatter : GhostBehavior
+public class GhostScatter : GhostBehaviour
 {
     private void OnDisable()
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 public class Ghost : MonoBehaviour
 {
     public Movement movement { get; private set; }
-    public GhostBehavior initialBehavior;
+    public GhostBehaviour initialBehaviour;
     public Transform target;
     private readonly int points = 200;
     public int Points
@@ -28,9 +28,9 @@ public class Ghost : MonoBehaviour
         gameObject.SetActive(true);
         movement.ResetState();
 
-        if (initialBehavior != null)
+        if (initialBehaviour != null)
         {
-            initialBehavior.Enable();
+            initialBehaviour.Enable();
         }
     }
 
