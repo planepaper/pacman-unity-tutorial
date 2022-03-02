@@ -39,7 +39,7 @@ public class AnimatedSprite : MonoBehaviour
         }
     }
 
-    public void Restrat()
+    public void Restart()
     {
         animationFrame = -1;
         Advance();

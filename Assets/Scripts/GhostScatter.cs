@@ -4,7 +4,7 @@ public class GhostScatter : GhostBehaviour
 {
     private void OnDisable()
     {
-        // ghost.chase.Enable();
+        ghost.chase.Enable();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -12,7 +12,7 @@ public class GhostScatter : GhostBehaviour
         Node node = other.GetComponent<Node>();
 
         // Do nothing while the ghost is frightened
-        if (node != null && enabled)
+        if (node != null && enabled && !ghost.frightened.enabled)
         {
             // Pick a random available direction
             int index = Random.Range(0, node.availableDirections.Count);

@@ -4,18 +4,26 @@ using UnityEngine;
 public class Ghost : MonoBehaviour
 {
     public Movement movement { get; private set; }
+    public GhostHome home { get; private set; }
+    public GhostScatter scatter { get; private set; }
+    public GhostChase chase { get; private set; }
+    public GhostFrightened frightened { get; private set; }
     public GhostBehaviour initialBehaviour;
     public Transform target;
-    private readonly int points = 200;
+    private readonly int points;
     public int Points
     {
-        get => points;
+        get => 200;
     }
 
 
     private void Awake()
     {
         movement = GetComponent<Movement>();
+        home = GetComponent<GhostHome>();
+        scatter = GetComponent<GhostScatter>();
+        chase = GetComponent<GhostChase>();
+        frightened = GetComponent<GhostFrightened>();
     }
 
     private void Start()
@@ -27,6 +35,15 @@ public class Ghost : MonoBehaviour
     {
         gameObject.SetActive(true);
         movement.ResetState();
+
+        frightened.Disable();
+        chase.Disable();
+        scatter.Enable();
+
+        if (home != initialBehaviour)
+        {
+            home.Disable();
+        }
 
         if (initialBehaviour != null)
         {
@@ -45,7 +62,14 @@ public class Ghost : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Pacman"))
         {
-
+            if (frightened.enabled)
+            {
+                FindObjectOfType<GameController>().GhostEaten(this);
+            }
+            else
+            {
+                FindObjectOfType<GameController>().PacmanEaten();
+            }
         }
     }
 
