@@ -4080,6 +4080,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 486086091576432880, guid: 6b145b2702c3f984b894c8acfd2002fe, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 744488171937219501, guid: 6b145b2702c3f984b894c8acfd2002fe, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3785893510200895650, guid: 6b145b2702c3f984b894c8acfd2002fe, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5251335713238418327, guid: 6b145b2702c3f984b894c8acfd2002fe, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -4092,9 +4104,17 @@ PrefabInstance:
       propertyPath: initialBehaviour
       value: 
       objectReference: {fileID: 1138582290}
+    - target: {fileID: 8505750041739698802, guid: 6b145b2702c3f984b894c8acfd2002fe, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 8664847175392047124, guid: 6b145b2702c3f984b894c8acfd2002fe, type: 3}
       propertyPath: m_Name
       value: Ghost_Inky
+      objectReference: {fileID: 0}
+    - target: {fileID: 8664847175392047124, guid: 6b145b2702c3f984b894c8acfd2002fe, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8915029580145642657, guid: 6b145b2702c3f984b894c8acfd2002fe, type: 3}
       propertyPath: inside
@@ -4349,7 +4369,7 @@ MonoBehaviour:
   initialDirection: {x: 0, y: 0}
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
 --- !u!1 &1313696588
 GameObject:
   m_ObjectHideFlags: 0
@@ -10439,13 +10459,13 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1275676978}
-    - target: {fileID: 6105998903868790009, guid: 2444547ad1a78fc4494cbea1ac8345e9, type: 3}
-      propertyPath: initialBehaviour
-      value: 
-      objectReference: {fileID: 1882901773}
     - target: {fileID: 6774981259325180062, guid: 2444547ad1a78fc4494cbea1ac8345e9, type: 3}
       propertyPath: m_Radius
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6774981259325180062, guid: 2444547ad1a78fc4494cbea1ac8345e9, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8191724821908247304, guid: 2444547ad1a78fc4494cbea1ac8345e9, type: 3}
       propertyPath: m_Layer
@@ -10526,17 +10546,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc4eef1dbb03559489db58b61e652bfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1882901773 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2573191758762647892, guid: 2444547ad1a78fc4494cbea1ac8345e9, type: 3}
-  m_PrefabInstance: {fileID: 1882901771}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c2f0fbd4c2914189967332254a809b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1896267275
