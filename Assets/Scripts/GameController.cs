@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -6,6 +7,11 @@ public class GameController : MonoBehaviour
     public Pacman pacman;
     public Transform pellets;
 
+    public Text gameOverText;
+    public Text scoreText;
+    public Text livesText;
+
+    public int ghostMultiplier { get; private set; } = 1;
     public int score { get; private set; }
     public int lives { get; private set; }
 
@@ -16,7 +22,7 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        if (lives <= 0 && Input.anyKeyDown)
+        if (lives <= 0 && Input.anyKey)
         {
             NewGame();
         }
@@ -31,6 +37,8 @@ public class GameController : MonoBehaviour
 
     private void NewRound()
     {
+        gameOverText.enabled = false;
+
         foreach (Transform pellet in pellets)
         {
             pellet.gameObject.SetActive(true);
@@ -41,53 +49,60 @@ public class GameController : MonoBehaviour
 
     private void ResetState()
     {
-        foreach (Ghost ghost in ghosts)
+        for (int i = 0; i < ghosts.Length; i++)
         {
-            ghost.gameObject.SetActive(true);
+            ghosts[i].ResetState();
         }
 
-        pacman.gameObject.SetActive(true);
+        pacman.ResetState();
     }
 
     private void GameOver()
     {
-        foreach (Ghost ghost in ghosts)
+        gameOverText.enabled = true;
+
+        for (int i = 0; i < ghosts.Length; i++)
         {
-            ghost.gameObject.SetActive(false);
+            ghosts[i].gameObject.SetActive(false);
         }
 
-        pacman.gameObject.SetActive(true);
-    }
-
-    private void SetScore(int score)
-    {
-        this.score = score;
+        pacman.gameObject.SetActive(false);
     }
 
     private void SetLives(int lives)
     {
         this.lives = lives;
+        livesText.text = "x" + lives.ToString();
     }
 
-    public void GhostEaten(Ghost ghost)
+    private void SetScore(int score)
     {
-        SetScore(score + ghost.Points);
+        this.score = score;
+        scoreText.text = score.ToString().PadLeft(2, '0');
     }
 
     public void PacmanEaten()
     {
-        pacman.gameObject.SetActive(false);
+        pacman.DeathSequence();
 
         SetLives(lives - 1);
 
         if (lives > 0)
         {
-            Invoke(nameof(ResetState), 3.0f);
+            Invoke(nameof(ResetState), 3f);
         }
         else
         {
             GameOver();
         }
+    }
+
+    public void GhostEaten(Ghost ghost)
+    {
+        int points = ghost.Points * ghostMultiplier;
+        SetScore(score + points);
+
+        ghostMultiplier++;
     }
 
     public void PelletEaten(Pellet pellet)
@@ -105,7 +120,14 @@ public class GameController : MonoBehaviour
 
     public void PowerPelletEaten(PowerPellet pellet)
     {
+        for (int i = 0; i < ghosts.Length; i++)
+        {
+            ghosts[i].frightened.Enable(pellet.duration);
+        }
+
         PelletEaten(pellet);
+        CancelInvoke(nameof(ResetGhostMultiplier));
+        Invoke(nameof(ResetGhostMultiplier), pellet.duration);
     }
 
     private bool HasRemainingPellets()
@@ -120,4 +142,10 @@ public class GameController : MonoBehaviour
 
         return false;
     }
+
+    private void ResetGhostMultiplier()
+    {
+        ghostMultiplier = 1;
+    }
+
 }
