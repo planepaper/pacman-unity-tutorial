@@ -7,10 +7,6 @@ public class GameController : MonoBehaviour
     public Pacman pacman;
     public Transform pellets;
 
-    public Text gameOverText;
-    public Text scoreText;
-    public Text livesText;
-
     public int ghostMultiplier { get; private set; } = 1;
     public int score { get; private set; }
     public int lives { get; private set; }
@@ -30,15 +26,13 @@ public class GameController : MonoBehaviour
 
     private void NewGame()
     {
-        SetScore(0);
-        SetLives(3);
+        score = 0;
+        lives = 3;
         NewRound();
     }
 
     private void NewRound()
     {
-        // gameOverText.enabled = false;
-
         foreach (Transform pellet in pellets)
         {
             pellet.gameObject.SetActive(true);
@@ -49,9 +43,9 @@ public class GameController : MonoBehaviour
 
     private void ResetState()
     {
-        for (int i = 0; i < ghosts.Length; i++)
+        foreach (Ghost ghost in ghosts)
         {
-            ghosts[i].ResetState();
+            ghost.ResetState();
         }
 
         pacman.ResetState();
@@ -59,33 +53,19 @@ public class GameController : MonoBehaviour
 
     private void GameOver()
     {
-        gameOverText.enabled = true;
-
-        for (int i = 0; i < ghosts.Length; i++)
+        foreach (Ghost ghost in ghosts)
         {
-            ghosts[i].gameObject.SetActive(false);
+            ghost.gameObject.SetActive(false);
         }
 
         pacman.gameObject.SetActive(false);
-    }
-
-    private void SetLives(int lives)
-    {
-        this.lives = lives;
-        // livesText.text = "x" + lives.ToString();
-    }
-
-    private void SetScore(int score)
-    {
-        this.score = score;
-        // scoreText.text = score.ToString().PadLeft(2, '0');
     }
 
     public void PacmanEaten()
     {
         pacman.DeathSequence();
 
-        SetLives(lives - 1);
+        lives--;
 
         if (lives > 0)
         {
@@ -100,7 +80,7 @@ public class GameController : MonoBehaviour
     public void GhostEaten(Ghost ghost)
     {
         int points = ghost.Points * ghostMultiplier;
-        SetScore(score + points);
+        score += points;
 
         ghostMultiplier++;
     }
@@ -109,7 +89,7 @@ public class GameController : MonoBehaviour
     {
         pellet.gameObject.SetActive(false);
 
-        SetScore(score + pellet.points);
+        score += pellet.points;
 
         if (!HasRemainingPellets())
         {
